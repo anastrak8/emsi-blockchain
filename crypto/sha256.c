@@ -1,5 +1,4 @@
 #include "hblk_crypto.h"
-
 /**
  * sha256 - gets SHA256 hash for given string
  * @s: the string to encode
