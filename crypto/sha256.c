@@ -1,11 +1,16 @@
 #include "hblk_crypto.h"
-uint8_t * sha256(int8_t const *s, size_t len, uint8_t digest[SHA256_DIGEST_LENGTH] )
+
+/**
+ * sha256 - gets SHA256 hash for given string
+ * @s: the string to encode
+ * @len: the length of given string
+ * @digest: buffer for hash
+ * Return: pointer to digest else NULL
+ */
+uint8_t *sha256(int8_t const *s, size_t len,
+		uint8_t digest[SHA256_DIGEST_LENGTH])
 {
-	SHA256_CTX sha_ctx;
-	if(digest == NULL)
-		return NULL;
-	SHA256_Init(&sha_ctx);
-	SHA256_Update(&sha_ctx,s,len);
-	SHA256_Final(digest,&sha_ctx);
-	return digest;
+	if (!s || !digest)
+		return (NULL);
+	return (SHA256((const unsigned char *)s, len, digest));
 }
