@@ -11,4 +11,3 @@ LIB = libhblk_crypto.a
 
 libhblk_crypto.a: $(OBJS)
 	ar rcs $(LIB) $(OBJS)
-
