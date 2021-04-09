@@ -1,4 +1,3 @@
-
 CC 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=gnu89 -g3
@@ -11,3 +10,4 @@ LIB = libhblk_crypto.a
 
 libhblk_crypto.a: $(OBJS)
 	ar rcs $(LIB) $(OBJS)
+

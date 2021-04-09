@@ -1,4 +1,3 @@
-
 #include "hblk_crypto.h"
 
 /**
@@ -33,3 +32,4 @@ EC_KEY* ec_load(char const* folder)
 	fclose(fp);
 	return (key);
 }
+
