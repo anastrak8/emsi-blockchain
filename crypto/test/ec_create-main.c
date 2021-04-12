@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-
 #include "hblk_crypto.h"
 
 /**
@@ -8,6 +7,7 @@
  *
  * Return: EXIT_SUCCESS or EXIT_FAILURE
  */
+
 int main(void)
 {
 	EC_KEY* key;
