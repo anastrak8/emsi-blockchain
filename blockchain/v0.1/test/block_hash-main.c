@@ -14,23 +14,21 @@ void _blockchain_destroy(blockchain_t *blockchain);
  */
 int main(void)
 {
-	blockchain_t *blockchain;
-	block_t *block;
+    blockchain_t *blockchain;
+    block_t *block;
 
-	blockchain = blockchain_create();
-	block = llist_get_head(blockchain->chain);
+    blockchain = blockchain_create();
+    block = llist_get_head(blockchain->chain);
 
-	block = block_create(block, (int8_t *)"Holberton", 9);
-    block->info.timestamp = 1536715352;
-	llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
-	_blockchain_print(blockchain);
+    block = block_create(block, (int8_t *)"Holberton", 9);
+    llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
+    _blockchain_print(blockchain);
 
-	block_hash(block, block->hash);
-	block = block_create(block, (int8_t *)"School", 6);
-    block->info.timestamp = 1536715352;
-	llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
-	_blockchain_print(blockchain);
+    block_hash(block, block->hash);
+    block = block_create(block, (int8_t *)"School", 6);
+    llist_add_node(blockchain->chain, block, ADD_NODE_REAR);
+    _blockchain_print(blockchain);
 
-	_blockchain_destroy(blockchain);
-	return (EXIT_SUCCESS);
+    _blockchain_destroy(blockchain);
+    return (EXIT_SUCCESS);
 }

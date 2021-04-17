@@ -1,23 +1,36 @@
 #include "blockchain.h"
 
+#define GENESIS_TIMESTAMP 1537578000
+#define GENESIS_DATA "Holberton School"
+#define GENESIS_DATA_LEN 16
+#define GENESIS_HASH "\xc5\x2c\x26\xc8\xb5\x46\x16\x39\x63\x5d\x8e\xdf\x2a\x97\xd4\x8d\x0c\x8e\x00\x09\xc8\x17\xf2\xb1\xd3\xd7\xff\x2f\x04\x51\x58\x03"
+
 /**
- * block_create - creates a new block in the sequence
- * @prev: pointer to previous block
- * @data: pointer of data to duplicate
- * @data_len: length of data
- * Return: pointer to new block or NULL
+ * blockchain_create - creates a genesis blockchain
+ * Return: pointer to new blockchain or NULL on error
  */
-block_t *block_create(block_t const *prev, int8_t const *data,uint32_t data_len)
+blockchain_t *blockchain_create(void)
 {
+	blockchain_t *chain = calloc(1, sizeof(*chain));
 	block_t *block = calloc(1, sizeof(*block));
-	
-	if (!block)
+	llist_t *list = llist_create(MT_SUPPORT_TRUE);
+
+	if (!chain || !block || !list)
+	{
+		free(chain), free(block), llist_destroy(list, 1, NULL);
 		return (NULL);
-	
-	memcpy(&(block->data.buffer), data, MIN(data_len, BLOCKCHAIN_DATA_MAX));
-	block->data.len = MIN(data_len, BLOCKCHAIN_DATA_MAX);
-	block->info.index = prev->info.index + 1;
-	block->info.timestamp = time(NULL);
-	memcpy(&(block->info.prev_hash), prev->hash, SHA256_DIGEST_LENGTH);
-	return (block);
+	}
+
+	block->info.timestamp = GENESIS_TIMESTAMP;
+	memcpy(&(block->data.buffer), GENESIS_DATA, GENESIS_DATA_LEN);
+	block->data.len = GENESIS_DATA_LEN;
+	memcpy(&(block->hash), GENESIS_HASH, SHA256_DIGEST_LENGTH);
+
+	if (llist_add_node(list, block, ADD_NODE_FRONT))
+	{
+		free(chain), free(block), llist_destroy(list, 1, NULL);
+		return (NULL);
+	}
+	chain->chain = list;
+	return (chain);
 }

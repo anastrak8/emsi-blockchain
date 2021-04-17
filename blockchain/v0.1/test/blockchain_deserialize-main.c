@@ -13,12 +13,12 @@ void _blockchain_print_brief(blockchain_t const *blockchain);
  */
 int main(void)
 {
-	blockchain_t *blockchain;
+    blockchain_t *blockchain;
 
-	blockchain = blockchain_deserialize("save.hblk");
+    blockchain = blockchain_deserialize("save.hblk");
 
-	_blockchain_print_brief(blockchain);
-	blockchain_destroy(blockchain);
+    _blockchain_print_brief(blockchain);
+    blockchain_destroy(blockchain);
 
-	return (EXIT_SUCCESS);
+    return (EXIT_SUCCESS);
 }
