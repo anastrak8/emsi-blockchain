@@ -1,19 +1,16 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pedantic -std=gnu90 -ggdb3 -c
 
-SRC0 = sha256.c ec_create.c ec_to_pub.c ec_from_pub.c ec_save.c ec_load.c ec_sign.c ec_verify.c
-OBJ0 = $(SRC0:.c=.o)
-NAME0 = libhblk_crypto.a
+CFLAGS = -Wall -Wextra -Werror -pedantic
+INCLUDES = -I.
 
-.PHONY: clean oclean flcean libhblk_crypto.a
+SRCS := $(wildcard *.c)
+OBJS := $(SRCS:.c=.o)
 
-clean:
-	$(RM) *~ $(NAME0)
+%.o : %.c
+	@echo "Creating object.." 
+	${CC} $(FLAGS) -c $< -o $@
 
-oclean:
-	$(RM) $(OBJ0)
+libhblk_crypto.a : $(OBJS)
+	@echo "Creating libhblk_crypto.a archive.."
+	ar r $@ $^
 
-fclean: clean oclean
-
-libhblk_crypto.a: hblk_crypto.h $(OBJ0)
-	ar rcs $(NAME0) $(OBJ0)
